@@ -144,7 +144,7 @@ export const useSubscriptionStore = create<SubscriptionState>()(
       setPaymentSuccess: (success) => set({ paymentSuccess: success }),
     }),
     {
-      name: 'ai-office-subscription-v2',
+      name: 'ai-office-subscription-v3',
       partialize: (state) => ({ 
         billingCycle: state.billingCycle,
         usage: state.usage,
