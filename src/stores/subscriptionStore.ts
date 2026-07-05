@@ -48,9 +48,9 @@ export const useSubscriptionStore = create<SubscriptionState>()(
       setBillingCycle: (cycle) => set({ billingCycle: cycle }),
 
       subscription: {
-        id: 'mock-pro',
+        id: 'mock-free',
         userId: 'demo',
-        tierId: 'pro',
+        tierId: 'free',
         status: 'active',
         billingCycle: 'monthly',
         currentPeriodStart: new Date().toISOString(),

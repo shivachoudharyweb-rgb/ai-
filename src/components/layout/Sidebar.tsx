@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useUIStore } from '@/stores/uiStore';
+import { useSubscriptionStore } from '@/stores/subscriptionStore';
+import { formatStorage } from '@/lib/pricing-data';
 import {
   Home,
   FileText,
@@ -57,6 +59,11 @@ const NAV_SECTIONS = [
 export function Sidebar() {
   const pathname = usePathname();
   const { sidebarOpen, setSidebarOpen } = useUIStore();
+  const { usage } = useSubscriptionStore();
+
+  const storageUsed = usage?.storage?.usedMb || 0;
+  const storageLimit = usage?.storage?.limitMb || 100;
+  const storagePercent = storageLimit ? Math.min(100, Math.round((storageUsed / storageLimit) * 100)) : 0;
 
   return (
     <>
@@ -185,9 +192,9 @@ export function Sidebar() {
             <span className="flex items-center gap-1.5 text-gray-600 dark:text-gray-300">
               <HardDrive className="h-3.5 w-3.5" /> Storage
             </span>
-            <span className="text-gray-500">2.45 / 10 GB</span>
+            <span className="text-gray-500">{formatStorage(storageUsed)} / {formatStorage(storageLimit)}</span>
           </div>
-          <Progress value={24.5} className="h-1.5 w-full bg-gray-100 dark:bg-gray-800" />
+          <Progress value={storagePercent} className="h-1.5 w-full bg-gray-100 dark:bg-gray-800" />
           <Link
             href="/pricing"
             className="mt-3 flex w-full items-center justify-center rounded-lg border border-indigo-200 bg-indigo-50 px-3 py-1.5 text-xs font-semibold text-indigo-700 transition-colors hover:bg-indigo-100 dark:border-indigo-900 dark:bg-indigo-950/30 dark:text-indigo-300 dark:hover:bg-indigo-900/50"

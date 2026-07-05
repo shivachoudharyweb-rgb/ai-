@@ -64,7 +64,7 @@ export const MOCK_USER: MockUser = {
 export const MOCK_SUBSCRIPTION: MockSubscription = {
   id: 'sub_demo_001',
   userId: 'usr_demo_001',
-  tierId: 'pro',
+  tierId: 'free',
   status: 'active',
   billingCycle: 'monthly',
   currentPeriodStart: '2026-07-01T00:00:00Z',
@@ -79,10 +79,10 @@ export const MOCK_SUBSCRIPTION: MockSubscription = {
 export const MOCK_USAGE: MockUsage = {
   userId: 'usr_demo_001',
   date: new Date().toISOString().split('T')[0],
-  pdf: { used: 23, limit: 100 },
-  image: { used: 67, limit: 200 },
-  ai: { used: 41, limit: 80 },
-  storage: { usedMb: 3420, limitMb: 10240 },
+  pdf: { used: 0, limit: 4 },
+  image: { used: 0, limit: 4 },
+  ai: { used: 0, limit: 2 },
+  storage: { usedMb: 0, limitMb: 100 },
 };
 
 // Payment history
