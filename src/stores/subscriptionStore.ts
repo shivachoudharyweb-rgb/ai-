@@ -108,7 +108,7 @@ export const useSubscriptionStore = create<SubscriptionState>()(
               pdf: { used: 0, limit: tier.limits.pdfDaily },
               image: { used: 0, limit: tier.limits.imageDaily },
               ai: { used: 0, limit: tier.limits.aiDaily },
-              storage: { usedMb: 0, limitMb: tier.limits.storageGb ? tier.limits.storageGb * 1024 : null }
+              storage: { usedMb: 0, limitMb: tier.limits.storageMb }
             }
           });
           return;
