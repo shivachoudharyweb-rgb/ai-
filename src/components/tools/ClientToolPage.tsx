@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuthStore } from '@/stores/authStore';
 import { Merge, Scissors, FileDown, FileText, ImageIcon, FileImage, Type, Shield, ShieldOff, UploadCloud, File as FileIcon, X, Download, Loader2, Eraser, Maximize, Minimize, UserSquare2, ScanFace, Droplets, ArrowUpCircle, Crop, Palette, MessageSquare, Globe, FormInput, CheckCircle2, Bot } from 'lucide-react';
 import { useDropzone } from 'react-dropzone';
 import { mergePDFs } from '@/lib/tools/pdf/pdfMerge';
@@ -97,7 +98,14 @@ export function ClientToolPage({ toolId }: { toolId: string }) {
   const [aiQuery, setAiQuery] = useState('');
   const [targetLang, setTargetLang] = useState('Spanish');
 
+  const { user, setAuthModalOpen } = useAuthStore();
+
   const onDrop = useCallback((acceptedFiles: File[]) => {
+    if (!user) {
+      setAuthModalOpen(true);
+      return;
+    }
+
     if (tool?.multiple) {
       setFiles((prev) => [...prev, ...acceptedFiles]);
     } else {
@@ -105,7 +113,7 @@ export function ClientToolPage({ toolId }: { toolId: string }) {
     }
     setResultBlob(null);
     setError(null);
-  }, [tool]);
+  }, [tool, user, setAuthModalOpen]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ 
     onDrop,
